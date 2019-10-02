@@ -31,20 +31,20 @@ int searchNum(vector<int>& nums, int target, int left, int right)
 {
 	if (left == right)
 	{
-		if (nums[left]==target)
+		if (nums[left] == target)
 		{
 			return left;
 		}
 		return -1;
 	}
 	if (left > right)return -1;
-	
+
 	int mid = (left + right) / 2;
 	if (nums[mid] == target)return mid;
 	//ÉıĞò4,5,6,7
-	if (nums[right]>nums[left])
+	if (nums[right] > nums[left])
 	{
-		if (nums[mid] > target)
+		if (nums[mid] >= target)
 		{
 			return searchNum(nums, target, left, mid);
 		}
@@ -54,14 +54,14 @@ int searchNum(vector<int>& nums, int target, int left, int right)
 		}
 	}
 	//4,5,6,7,0,1,2
-	else 
+	else
 	{
 		//left ÉıĞò4,5,6,7
-		if (nums[mid] > nums[left])
+		if (nums[mid] >= nums[left])
 		{
-			if (nums[mid] > target&&nums[left] < target)
+			if (nums[mid] >= target&&nums[left] <= target)
 			{
-				return searchNum(nums, target, left, mid);	
+				return searchNum(nums, target, left, mid);
 			}
 			else
 			{
@@ -70,17 +70,16 @@ int searchNum(vector<int>& nums, int target, int left, int right)
 		}
 		else
 		{
-			if (nums[mid]<target&&nums[right]>target)
+			if (nums[mid] < target&&nums[right] >= target)
 			{
 				return searchNum(nums, target, mid + 1, right);
 			}
-			return searchNum(nums, target, left, mid);	
-				
+			return searchNum(nums, target, left, mid);
+
 		}
 	}
 	return -1;
 }
-
 int search(vector<int>& nums, int target) {
 	if (nums.size() == 0)return -1;
 	return searchNum(nums, target, 0, nums.size()-1);
